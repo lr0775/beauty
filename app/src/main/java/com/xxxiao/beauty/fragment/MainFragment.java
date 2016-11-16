@@ -3,6 +3,7 @@ package com.xxxiao.beauty.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,8 @@ import java.util.ArrayList;
 
 public class MainFragment extends BaseFragment {
 
+    private static final int COUNT = 18;
+
     private SwipeRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
     private AlbumAdapter mAdapter;
@@ -36,6 +39,9 @@ public class MainFragment extends BaseFragment {
 
     private String mCategory;
     private int mPage = 1;
+
+    private boolean mLoading;
+    private boolean mLoadAll;
 
     public MainFragment() {
     }
@@ -77,6 +83,22 @@ public class MainFragment extends BaseFragment {
             }
         });
 
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (!ViewCompat.canScrollVertically(mRecyclerView, 1) && !mLoading && !mLoadAll) {
+                    mRefreshLayout.setRefreshing(true);
+                    crawlAlbumList();
+                }
+            }
+        });
+
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -90,12 +112,14 @@ public class MainFragment extends BaseFragment {
     }
 
     private void crawlAlbumList() {
+        mLoading = true;
         mTaskManager.start(SpiderTask.crawlAlbumList(mCategory, mPage)
                 .setCallback(new TaskCallback<ArrayList<Album>>() {
 
                     @Override
                     public void onFinish() {
                         mRefreshLayout.setRefreshing(false);
+                        mLoading = false;
                     }
 
                     @Override
@@ -110,6 +134,11 @@ public class MainFragment extends BaseFragment {
                         }
                         mList.addAll(result);
                         mAdapter.notifyDataSetChanged();
+                        if (result.size() >= COUNT) {
+                            mPage++;
+                        } else {
+                            mLoadAll = true;
+                        }
                     }
                 }));
     }
