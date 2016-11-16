@@ -83,6 +83,7 @@ public class MainActivity extends BaseActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(mActivity, SearchActivity.class));
             return true;
         }
 
