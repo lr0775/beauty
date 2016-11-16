@@ -1,5 +1,6 @@
 package com.xxxiao.beauty.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xxxiao.beauty.R;
+import com.xxxiao.beauty.activity.AlbumActivity;
 import com.xxxiao.beauty.adapter.AlbumAdapter;
+import com.xxxiao.beauty.base.BaseFragment;
 import com.xxxiao.beauty.component.TaskCallback;
 import com.xxxiao.beauty.component.TaskError;
 import com.xxxiao.beauty.constant.KEY;
@@ -68,7 +71,9 @@ public class MainFragment extends BaseFragment {
         mAdapter.setInterface(new AlbumAdapter.AdapterInterface() {
             @Override
             public void onItemClick(int position, Album item) {
-
+                Intent intent = new Intent(mActivity, AlbumActivity.class);
+                intent.putExtra(KEY.LINK, item.link);
+                startActivity(intent);
             }
         });
 

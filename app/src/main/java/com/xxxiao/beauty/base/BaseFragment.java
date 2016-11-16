@@ -1,4 +1,4 @@
-package com.xxxiao.beauty.fragment;
+package com.xxxiao.beauty.base;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;

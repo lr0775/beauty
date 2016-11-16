@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.xxxiao.beauty.R;
+import com.xxxiao.beauty.base.BaseActivity;
 import com.xxxiao.beauty.constant.API;
 import com.xxxiao.beauty.fragment.MainFragment;
 

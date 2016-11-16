@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xxxiao.beauty.R;
+import com.xxxiao.beauty.base.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 

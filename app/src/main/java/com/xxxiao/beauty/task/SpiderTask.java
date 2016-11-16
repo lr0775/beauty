@@ -59,8 +59,7 @@ public class SpiderTask {
                 ArrayList<Photo> dataList = new ArrayList<>();
                 try {
                     Document document = Jsoup.connect(link).get();
-                    Element element = document.getElementById("rgg-imagegrid gallery");
-                    Elements elementsA = element.getElementsByTag("a");
+                    Elements elementsA = document.getElementsByClass("rgg-a local-link");
                     for (Element a : elementsA) {
                         String url = a.attr("abs:href");
                         url = StringUtils.getOriginalImageURL(url);

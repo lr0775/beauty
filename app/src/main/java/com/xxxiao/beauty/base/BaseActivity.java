@@ -1,4 +1,4 @@
-package com.xxxiao.beauty.activity;
+package com.xxxiao.beauty.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
