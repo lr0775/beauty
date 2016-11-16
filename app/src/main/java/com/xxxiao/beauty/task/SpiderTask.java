@@ -20,13 +20,13 @@ import java.util.ArrayList;
 
 public class SpiderTask {
 
-    public static Task<ArrayList<Album>> crawlAlbumList(final String type, final int page) {
+    public static Task<ArrayList<Album>> crawlAlbumList(final String category, final int page) {
         return new Task<ArrayList<Album>>() {
             @Override
             protected void call() {
                 ArrayList<Album> dataList = new ArrayList<>();
                 try {
-                    Document document = Jsoup.connect(API.HOST + type + "/page/" + page).get();
+                    Document document = Jsoup.connect(API.HOST + category + "/page/" + page).get();
                     Element imageListelement = document.getElementById("blog-grid");
                     Elements imageListElements = imageListelement.getElementsByAttributeValueContaining("class", "col-lg-4 col-md-4 three-columns post-box");
                     for (Element imageListElement : imageListElements) {

@@ -6,6 +6,6 @@ package com.xxxiao.beauty.constant;
 
 public class KEY {
 
-    public static final String TITLE = "title";
+    public static final String CATEGORY = "category";
 
 }

@@ -14,6 +14,13 @@ import java.io.File;
 
 public class ImageUtils {
 
+    public static void load(String url, ImageView view) {
+        Glide.with(App.getContext())
+                .load(url)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(view);
+    }
+
     public static void load(File file, ImageView view) {
         Glide.with(App.getContext())
                 .load(file)
