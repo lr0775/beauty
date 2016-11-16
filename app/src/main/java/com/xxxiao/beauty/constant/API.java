@@ -6,15 +6,17 @@ package com.xxxiao.beauty.constant;
 
 public class API {
 
-    public static final String HOST = "http://192.168.1.141";
+    public static final String HOST = "http://m.xxxiao.com";
 
-    public static final String LOGIN = "/login";
-    public static final String LOGOUT = "/logout";
-    public static final String REGISTER = "/register";
-    public static final String ABOUT = "/about";
-    public static final String NOTEPAD = "/notepad";
-    public static final String NOTEPAD_CREATE = "/notepad/create";
-    public static final String NOTEPAD_UPDATE = "/notepad/update";
-    public static final String NOTEPAD_DELETE = "/notepad/delete";
+    public static final String ZXMN = "";
+    public static final String XGMN = "/cat/xinggan";
+    public static final String SNLL = "cat/shaonv";
+    public static final String MRXT = "/cat/mrxt";
+    public static final String SWMT = "/cat/swmt";
+    public static final String WMXZ = "/cat/wmxz";
+    public static final String NSHJ = "/cat/collection";
+    public static final String MNBZ = "/cat/wallpaper";
+
+    public static final String SEARCH = "/tag/";
 
 }

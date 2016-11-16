@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xxxiao.beauty.constant.API;
-import com.xxxiao.beauty.util.Logger;
 import com.xxxiao.beauty.util.NetUtils;
 
 import java.io.IOException;

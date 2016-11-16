@@ -1,4 +1,4 @@
-package com.xxxiao.beauty.util;
+package com.xxxiao.beauty.component;
 
 import android.util.Log;
 

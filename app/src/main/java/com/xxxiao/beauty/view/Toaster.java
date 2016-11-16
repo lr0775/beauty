@@ -1,4 +1,4 @@
-package com.xxxiao.beauty.util;
+package com.xxxiao.beauty.view;
 
 import android.content.Context;
 import android.os.Handler;
