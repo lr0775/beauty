@@ -3,15 +3,13 @@ package com.xxxiao.beauty.component;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xxxiao.beauty.constant.API;
 import com.xxxiao.beauty.util.Logger;
 import com.xxxiao.beauty.util.NetUtils;
 
 import java.io.IOException;
 import java.util.Set;
 
-import cc.stbl.demo.constant.API;
-import cc.stbl.demo.weapon.HttpResponse;
-import cc.stbl.demo.weapon.TaskError;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
