@@ -27,13 +27,11 @@ public class SpiderTask {
                 ArrayList<Album> dataList = new ArrayList<>();
                 try {
                     Document document = Jsoup.connect(API.HOST + category + "/page/" + page).get();
-                    Element imageListelement = document.getElementById("blog-grid");
-                    Elements imageListElements = imageListelement.getElementsByAttributeValueContaining("class", "col-lg-4 col-md-4 three-columns post-box");
-                    for (Element imageListElement : imageListElements) {
-                        Element a = imageListElement.select("a[href]").first();
+                    Elements elementsA = document.getElementsByClass("thumb-link");
+                    for (Element a : elementsA) {
                         String link = a.attr("abs:href");
 
-                        Element img = imageListElement.select("img").first();
+                        Element img = a.select("img").first();
                         String cover = img.attr("abs:src");
                         cover = StringUtils.getOriginalImageURL(cover);
                         String name = img.attr("alt").trim();
