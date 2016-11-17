@@ -53,6 +53,7 @@ public class SliderActivity extends BaseActivity {
             @Override
             public void onLoadFailed(Exception e) {
                 Toaster.show(e.getMessage());
+                mContainerLayout.post(mTask);
             }
 
             @Override
