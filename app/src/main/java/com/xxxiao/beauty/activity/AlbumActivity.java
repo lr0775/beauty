@@ -12,10 +12,12 @@ import android.view.Menu;
 import com.xxxiao.beauty.R;
 import com.xxxiao.beauty.adapter.PhotoAdapter;
 import com.xxxiao.beauty.base.BaseActivity;
+import com.xxxiao.beauty.component.DBHelper;
 import com.xxxiao.beauty.component.TaskCallback;
 import com.xxxiao.beauty.component.TaskError;
 import com.xxxiao.beauty.constant.KEY;
 import com.xxxiao.beauty.model.Album;
+import com.xxxiao.beauty.model.AlbumDao;
 import com.xxxiao.beauty.model.Photo;
 import com.xxxiao.beauty.task.SpiderTask;
 import com.xxxiao.beauty.view.Toaster;
@@ -117,7 +119,7 @@ public class AlbumActivity extends BaseActivity {
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-
+                            collectAlbum();
                         }
                     })
                     .create();
@@ -129,5 +131,10 @@ public class AlbumActivity extends BaseActivity {
         } else {
             mDialog.show();
         }
+    }
+
+    private void collectAlbum() {
+        AlbumDao dao = DBHelper.getInstance().getSession().getAlbumDao();
+        dao.insert(mAlbum);
     }
 }
