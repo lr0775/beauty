@@ -1,13 +1,13 @@
 package com.xxxiao.beauty.util;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.xxxiao.beauty.App;
 
 import java.io.File;
@@ -32,24 +32,23 @@ public class ImageUtils {
                 .into(view);
     }
 
-    public static void load(String url, ImageView view, final OnLoadListener listener) {
+    public static void load(String url, final OnLoadListener listener) {
         Glide.with(App.getContext())
                 .load(url)
-                .into(new GlideDrawableImageViewTarget(view) {
+                .asBitmap()
+                .into(new SimpleTarget<Bitmap>() {
 
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
                         if (listener != null) {
                             listener.onLoadFailed(e);
                         }
                     }
 
                     @Override
-                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
-                        super.onResourceReady(resource, animation);
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                         if (listener != null) {
-                            listener.onLoadDone();
+                            listener.onLoadDone(resource);
                         }
                     }
                 });
@@ -59,7 +58,7 @@ public class ImageUtils {
 
         void onLoadFailed(Exception e);
 
-        void onLoadDone();
+        void onLoadDone(Bitmap bitmap);
     }
 
 }

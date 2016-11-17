@@ -1,12 +1,14 @@
 package com.xxxiao.beauty.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.xxxiao.beauty.R;
 import com.xxxiao.beauty.base.BaseActivity;
+import com.xxxiao.beauty.component.Logger;
 import com.xxxiao.beauty.constant.KEY;
 import com.xxxiao.beauty.model.Photo;
 import com.xxxiao.beauty.util.ImageUtils;
@@ -42,14 +44,15 @@ public class SliderActivity extends BaseActivity {
     }
 
     private void loadImage(String url) {
-        ImageUtils.load(url, mSliderIv, new ImageUtils.OnLoadListener() {
+        ImageUtils.load(url, new ImageUtils.OnLoadListener() {
             @Override
             public void onLoadFailed(Exception e) {
                 Toaster.show(e.getMessage());
             }
 
             @Override
-            public void onLoadDone() {
+            public void onLoadDone(Bitmap bitmap) {
+                mSliderIv.setImageBitmap(bitmap);
                 mSliderIv.postDelayed(mTask, 2500);
             }
         });
@@ -58,6 +61,7 @@ public class SliderActivity extends BaseActivity {
     private Runnable mTask = new Runnable() {
         @Override
         public void run() {
+            Logger.e("position= " + mPosition);
             loadImage(mPhotoList.get(mPosition).url);
             int p = mPosition + 1;
             if (p >= mPhotoList.size()) {
