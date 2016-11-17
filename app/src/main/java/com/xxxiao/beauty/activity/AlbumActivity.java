@@ -1,10 +1,13 @@
 package com.xxxiao.beauty.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 
 import com.xxxiao.beauty.R;
 import com.xxxiao.beauty.adapter.PhotoAdapter;
@@ -12,6 +15,7 @@ import com.xxxiao.beauty.base.BaseActivity;
 import com.xxxiao.beauty.component.TaskCallback;
 import com.xxxiao.beauty.component.TaskError;
 import com.xxxiao.beauty.constant.KEY;
+import com.xxxiao.beauty.model.Album;
 import com.xxxiao.beauty.model.Photo;
 import com.xxxiao.beauty.task.SpiderTask;
 import com.xxxiao.beauty.view.Toaster;
@@ -25,14 +29,15 @@ public class AlbumActivity extends BaseActivity {
     private PhotoAdapter mAdapter;
     private ArrayList<Photo> mList;
 
-    private String mLink;
+    private Album mAlbum;
+    private AlertDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
 
-        mLink = getIntent().getStringExtra(KEY.LINK);
+        mAlbum = getIntent().getParcelableExtra(KEY.ALBUM);
         mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -64,7 +69,7 @@ public class AlbumActivity extends BaseActivity {
     }
 
     private void crawlPhotoList() {
-        mTaskManager.start(SpiderTask.crawlPhotoList(mLink)
+        mTaskManager.start(SpiderTask.crawlPhotoList(mAlbum.link)
                 .setCallback(new TaskCallback<ArrayList<Photo>>() {
 
                     @Override
@@ -86,4 +91,43 @@ public class AlbumActivity extends BaseActivity {
                 }));
     }
 
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        showConfirmDialog();
+        return super.onMenuOpened(featureId, menu);
+    }
+
+    private void showConfirmDialog() {
+        if (mDialog == null) {
+            mDialog = new AlertDialog.Builder(mActivity)
+                    .setTitle("确认保存吗？")
+                    .setMessage(mAlbum.name)
+                    .setNeutralButton("想想", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    })
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    })
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    })
+                    .create();
+            mDialog.show();
+            return;
+        }
+        if (mDialog.isShowing()) {
+            mDialog.dismiss();
+        } else {
+            mDialog.show();
+        }
+    }
 }

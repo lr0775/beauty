@@ -78,7 +78,7 @@ public class MainFragment extends BaseFragment {
             @Override
             public void onItemClick(int position, Album item) {
                 Intent intent = new Intent(mActivity, AlbumActivity.class);
-                intent.putExtra(KEY.LINK, item.link);
+                intent.putExtra(KEY.ALBUM, item);
                 startActivity(intent);
             }
         });
