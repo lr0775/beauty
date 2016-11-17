@@ -4,7 +4,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.xxxiao.beauty.R;
 import com.xxxiao.beauty.base.BaseActivity;
@@ -18,7 +23,7 @@ import java.util.ArrayList;
 
 public class SliderActivity extends BaseActivity {
 
-    private ImageView mSliderIv;
+    private RelativeLayout mContainerLayout;
     private ArrayList<Photo> mPhotoList;
     private int mPosition;
 
@@ -33,9 +38,9 @@ public class SliderActivity extends BaseActivity {
             return;
         }
         mPosition = getIntent().getIntExtra(KEY.POSITION, 0);
-        mSliderIv = (ImageView) findViewById(R.id.slider);
+        mContainerLayout = (RelativeLayout) findViewById(R.id.container);
 
-        mSliderIv.setOnClickListener(new View.OnClickListener() {
+        mContainerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(mActivity, EmptyActivity.class));
@@ -51,9 +56,35 @@ public class SliderActivity extends BaseActivity {
             }
 
             @Override
-            public void onLoadDone(Bitmap bitmap) {
-                mSliderIv.setImageBitmap(bitmap);
-                mSliderIv.postDelayed(mTask, 2500);
+            public void onLoadDone(final Bitmap bitmap) {
+                final ImageView iv = new ImageView(mActivity);
+                iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                mContainerLayout.addView(iv, -1, params);
+                iv.setImageBitmap(bitmap);
+                AlphaAnimation fadeImage = new AlphaAnimation(0, 1);
+                fadeImage.setDuration(500);
+                fadeImage.setInterpolator(new DecelerateInterpolator());
+                fadeImage.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mContainerLayout.postDelayed(mTask, 2500);
+                        if (mContainerLayout.getChildCount() > 1) {
+                            mContainerLayout.removeViewAt(0);
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                iv.startAnimation(fadeImage);
             }
         });
     }
@@ -75,13 +106,13 @@ public class SliderActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mSliderIv.post(mTask);
+        mContainerLayout.post(mTask);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mSliderIv.removeCallbacks(mTask);
+        mContainerLayout.removeCallbacks(mTask);
     }
 
 }
