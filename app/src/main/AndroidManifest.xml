@@ -39,6 +39,10 @@
             android:name=".activity.SliderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.EmptyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.Empty" />
     </application>
 
 </manifest>

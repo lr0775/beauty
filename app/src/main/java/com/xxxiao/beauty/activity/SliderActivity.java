@@ -1,10 +1,12 @@
 package com.xxxiao.beauty.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.xxxiao.beauty.R;
+import com.xxxiao.beauty.base.BaseActivity;
 import com.xxxiao.beauty.constant.KEY;
 import com.xxxiao.beauty.model.Photo;
 import com.xxxiao.beauty.util.ImageUtils;
@@ -12,7 +14,7 @@ import com.xxxiao.beauty.view.Toaster;
 
 import java.util.ArrayList;
 
-public class SliderActivity extends AppCompatActivity {
+public class SliderActivity extends BaseActivity {
 
     private ImageView mSliderIv;
     private ArrayList<Photo> mPhotoList;
@@ -31,7 +33,12 @@ public class SliderActivity extends AppCompatActivity {
         mPosition = getIntent().getIntExtra(KEY.POSITION, 0);
         mSliderIv = (ImageView) findViewById(R.id.slider);
 
-        loadImage(mPhotoList.get(mPosition).url);
+        mSliderIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(mActivity, EmptyActivity.class));
+            }
+        });
     }
 
     private void loadImage(String url) {
@@ -51,19 +58,26 @@ public class SliderActivity extends AppCompatActivity {
     private Runnable mTask = new Runnable() {
         @Override
         public void run() {
+            loadImage(mPhotoList.get(mPosition).url);
             int p = mPosition + 1;
             if (p >= mPhotoList.size()) {
                 mPosition = 0;
             } else {
                 mPosition = p;
             }
-            loadImage(mPhotoList.get(mPosition).url);
         }
     };
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onResume() {
+        super.onResume();
+        mSliderIv.post(mTask);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         mSliderIv.removeCallbacks(mTask);
     }
+
 }
