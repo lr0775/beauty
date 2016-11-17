@@ -43,7 +43,7 @@ public class ImageUtils {
                     public void animate(View view) {
                         view.setAlpha(0f);
                         ObjectAnimator fadeAnim = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f);
-                        fadeAnim.setDuration(100);
+                        fadeAnim.setDuration(1);
                         fadeAnim.start();
                     }
                 })
