@@ -100,9 +100,9 @@ public class AlbumActivity extends BaseActivity {
     private void showConfirmDialog() {
         if (mDialog == null) {
             mDialog = new AlertDialog.Builder(mActivity)
-                    .setTitle("确认保存吗？")
+                    .setTitle("确认收藏吗？")
                     .setMessage(mAlbum.name)
-                    .setNeutralButton("想想", new DialogInterface.OnClickListener() {
+                    .setNeutralButton("再看看", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
