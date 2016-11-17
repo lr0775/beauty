@@ -36,6 +36,6 @@ public class TaskError {
     }
 
     public TaskError(Throwable throwable) {
-        this(throwable, false);
+        this(throwable, true);
     }
 }

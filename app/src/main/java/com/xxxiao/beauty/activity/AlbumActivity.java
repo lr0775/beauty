@@ -1,5 +1,6 @@
 package com.xxxiao.beauty.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,7 +45,10 @@ public class AlbumActivity extends BaseActivity {
         mAdapter.setInterface(new PhotoAdapter.AdapterInterface() {
             @Override
             public void onItemClick(int position, Photo item) {
-
+                Intent intent = new Intent(mActivity, SliderActivity.class);
+                intent.putExtra(KEY.PHOTO_LIST, mList);
+                intent.putExtra(KEY.POSITION, position);
+                startActivity(intent);
             }
         });
 
