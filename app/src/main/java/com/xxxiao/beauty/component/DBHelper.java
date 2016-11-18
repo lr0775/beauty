@@ -2,7 +2,6 @@ package com.xxxiao.beauty.component;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Looper;
 
 import com.xxxiao.beauty.model.AlbumDao;
 import com.xxxiao.beauty.model.DaoMaster;
@@ -17,10 +16,16 @@ public class DBHelper extends DaoMaster.OpenHelper {
         super(context, name, factory);
     }
 
+    /**
+     * 升级数据库，在主线程打开数据库就是在主线程升级，在子线程打开数据库就在子线程升级，不要阻塞这个方法
+     *
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(Database db, int oldVersion, int newVersion) {
         Logger.e("Upgrading schema from version " + oldVersion + " to " + newVersion);
-        Logger.e("onUpgrade in main thread ? " + (Looper.myLooper() == Looper.getMainLooper())); //false, not in main thread
         MigrationHelper.migrate(db, AlbumDao.class);
     }
 

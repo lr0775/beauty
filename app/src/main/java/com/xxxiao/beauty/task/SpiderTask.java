@@ -43,7 +43,7 @@ public class SpiderTask {
                         album.link = link;
                         album.cover = cover;
                         album.id = StringUtils.getAlbumID(link);
-                        //album.timestamp = System.currentTimeMillis();
+                        album.timestamp = System.currentTimeMillis();
                         dataList.add(album);
                     }
                     onSuccess(dataList);
