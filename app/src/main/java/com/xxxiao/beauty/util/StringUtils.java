@@ -21,4 +21,16 @@ public class StringUtils {
         return originalURL;
     }
 
+    public static Long getAlbumID(String link) {
+        int index = link.lastIndexOf("/");
+        String idStr = link.substring(index + 1, link.length());
+        Long id = 0L;
+        try {
+            id = Long.valueOf(idStr);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
 }

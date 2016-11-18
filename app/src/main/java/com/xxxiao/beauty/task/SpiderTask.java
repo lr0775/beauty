@@ -39,6 +39,7 @@ public class SpiderTask {
                         album.name = name;
                         album.link = link;
                         album.cover = cover;
+                        album.id = StringUtils.getAlbumID(link);
                         dataList.add(album);
                     }
                     onSuccess(dataList);
