@@ -13,6 +13,7 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class Album implements Parcelable {
 
+    public Long id;
     public String name;
     public String link;
     public String cover;
@@ -57,6 +58,14 @@ public class Album implements Parcelable {
         this.cover = cover;
     }
 
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public static final Parcelable.Creator<Album> CREATOR = new Parcelable.Creator<Album>() {
         public Album createFromParcel(Parcel in) {
             return new Album(in);
@@ -73,8 +82,9 @@ public class Album implements Parcelable {
         cover = in.readString();
     }
 
-    @Generated(hash = 39293990)
-    public Album(String name, String link, String cover) {
+    @Generated(hash = 2007464874)
+    public Album(Long id, String name, String link, String cover) {
+        this.id = id;
         this.name = name;
         this.link = link;
         this.cover = cover;
