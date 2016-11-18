@@ -32,7 +32,6 @@ public class AlbumActivity extends BaseActivity {
     private ArrayList<Photo> mList;
 
     private Album mAlbum;
-    private AlertDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +99,9 @@ public class AlbumActivity extends BaseActivity {
     }
 
     private void showConfirmDialog() {
-        if (mDialog == null) {
-            mDialog = new AlertDialog.Builder(mActivity)
+        AlertDialog dialog = null;
+        if (!isCollect()) {
+            dialog = new AlertDialog.Builder(mActivity)
                     .setTitle("确认收藏吗？")
                     .setMessage(mAlbum.name)
                     .setNeutralButton("再看看", new DialogInterface.OnClickListener() {
@@ -123,19 +123,48 @@ public class AlbumActivity extends BaseActivity {
                         }
                     })
                     .create();
-            mDialog.show();
-            return;
-        }
-        if (mDialog.isShowing()) {
-            mDialog.dismiss();
         } else {
-            mDialog.show();
+            dialog = new AlertDialog.Builder(mActivity)
+                    .setTitle("确认取消收藏吗？")
+                    .setMessage(mAlbum.name)
+                    .setNeutralButton("再看看", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    })
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    })
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            uncollectAlbum();
+                        }
+                    })
+                    .create();
         }
+        dialog.show();
+    }
+
+    private boolean isCollect() {
+        AlbumDao dao = DBManager.getInstance().getSession().getAlbumDao();
+        Album album = dao.load(mAlbum.id);
+        return album != null;
     }
 
     private void collectAlbum() {
         AlbumDao dao = DBManager.getInstance().getSession().getAlbumDao();
         dao.insertOrReplace(mAlbum);
         Toaster.show("收藏成功");
+    }
+
+    private void uncollectAlbum() {
+        AlbumDao dao = DBManager.getInstance().getSession().getAlbumDao();
+        dao.deleteByKey(mAlbum.id);
+        Toaster.show("取消收藏成功");
     }
 }
