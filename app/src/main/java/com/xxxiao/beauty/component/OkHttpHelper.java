@@ -1,7 +1,5 @@
 package com.xxxiao.beauty.component;
 
-import android.text.TextUtils;
-
 import com.alibaba.fastjson.JSONObject;
 import com.xxxiao.beauty.constant.API;
 import com.xxxiao.beauty.util.NetUtils;
@@ -54,35 +52,8 @@ public class OkHttpHelper {
         Response response = mClient.newCall(request).execute();
         String res = response.body().string();
         Logger.e("url = " + url + ", response = " + res);
-        JSONObject obj = null;
-        try {
-            obj = JSONObject.parseObject(res);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Logger.e("url = " + url + ", response = " + res);
-            return new HttpResponse(new TaskError("数据返回错误"), "");
-        }
-
-        if (obj == null) {
-            return new HttpResponse(new TaskError("数据返回错误"), "");
-        }
-
         TaskError error = null;
-        JSONObject status = obj.getJSONObject("response_status");
-        if (status.containsKey("code") || TextUtils.isEmpty(status.getString("error"))) {
-            error = new TaskError();
-            if (status.containsKey("code")) {
-                error.code = status.getIntValue("code");
-            }
-            error.msg = status.getString("error");
-        }
-
-        String result = "";
-        if (error == null) {
-            if (obj.containsKey("response_data")) {
-                result = obj.getString("response_data");
-            }
-        }
+        String result = res;
         return new HttpResponse(error, result);
     }
 
