@@ -28,7 +28,7 @@ public class DBSession {
     private DaoSession mSession;
 
     private DBSession() {
-        MyDbOpenHelper helper = new MyDbOpenHelper(App.getContext(), DB_NAME, null);
+        DBHelper helper = new DBHelper(App.getContext(), DB_NAME, null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDb());
         mSession = daoMaster.newSession();
     }

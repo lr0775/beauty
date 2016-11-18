@@ -19,13 +19,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * please call {@link #migrate(Database, Class[])}
+ * please call {@link #upgrade(Database, Class[])}
  *
  * @author lixi
  * @description <ForgetThisProject>
  * @date 16/4/15
  */
-public final class MigrationHelper {
+public final class DBUpgradeHelper {
 
     /**
      * key: javaType
@@ -72,7 +72,7 @@ public final class MigrationHelper {
     }
 
 
-    public static void migrate(Database db, Class<? extends AbstractDao<?, ?>>... daoClasses) {
+    public static void upgrade(Database db, Class<? extends AbstractDao<?, ?>>... daoClasses) {
         generateTempTables(db, daoClasses);
         dropAllTables(db, true, daoClasses);
         createAllTables(db, false, daoClasses);
