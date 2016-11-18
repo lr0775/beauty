@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Unique;
 
 /**
  * Created by Administrator on 2016/11/16.
@@ -13,8 +15,10 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class Album implements Parcelable {
 
+    @Id
     public Long id;
     public String name;
+    @Unique
     public String link;
     public String cover;
 
