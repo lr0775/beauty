@@ -64,6 +64,14 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        FloatingActionButton collectionFab = (FloatingActionButton) findViewById(R.id.fab_collection);
+        collectionFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(mActivity, CollectionActivity.class));
+            }
+        });
+
     }
 
 

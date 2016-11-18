@@ -44,6 +44,10 @@
             android:name=".activity.EmptyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.Empty" />
+        <activity
+            android:name=".activity.CollectionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
