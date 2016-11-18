@@ -19,7 +19,7 @@ public class DBHelper extends DaoMaster.OpenHelper {
     @Override
     public void onUpgrade(Database db, int oldVersion, int newVersion) {
         Logger.e("greenDAO", "Upgrading schema from version " + oldVersion + " to " + newVersion);
-        DBUpgradeHelper.upgrade(db, AlbumDao.class);
+        MigrationHelper.migrate(db, AlbumDao.class);
     }
 
 }
