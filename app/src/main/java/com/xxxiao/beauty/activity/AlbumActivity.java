@@ -12,7 +12,7 @@ import android.view.Menu;
 import com.xxxiao.beauty.R;
 import com.xxxiao.beauty.adapter.PhotoAdapter;
 import com.xxxiao.beauty.base.BaseActivity;
-import com.xxxiao.beauty.component.DBSession;
+import com.xxxiao.beauty.component.DBManager;
 import com.xxxiao.beauty.component.TaskCallback;
 import com.xxxiao.beauty.component.TaskError;
 import com.xxxiao.beauty.constant.KEY;
@@ -134,7 +134,7 @@ public class AlbumActivity extends BaseActivity {
     }
 
     private void collectAlbum() {
-        AlbumDao dao = DBSession.getInstance().getSession().getAlbumDao();
+        AlbumDao dao = DBManager.getInstance().getSession().getAlbumDao();
         dao.insert(mAlbum);
     }
 }

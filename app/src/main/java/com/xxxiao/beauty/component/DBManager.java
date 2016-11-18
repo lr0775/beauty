@@ -8,17 +8,17 @@ import com.xxxiao.beauty.model.DaoSession;
  * Created by Administrator on 2016/11/17.
  */
 
-public class DBSession {
+public class DBManager {
 
     private static final String DB_NAME = "app.db";
 
-    private static volatile DBSession sInstance;
+    private static volatile DBManager sInstance;
 
-    public static DBSession getInstance() {
+    public static DBManager getInstance() {
         if (sInstance == null) {
-            synchronized (DBSession.class) {
+            synchronized (DBManager.class) {
                 if (sInstance == null) {
-                    sInstance = new DBSession();
+                    sInstance = new DBManager();
                 }
             }
         }
@@ -27,7 +27,7 @@ public class DBSession {
 
     private DaoSession mSession;
 
-    private DBSession() {
+    private DBManager() {
         DBHelper helper = new DBHelper(App.getContext(), DB_NAME, null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDb());
         mSession = daoMaster.newSession();
