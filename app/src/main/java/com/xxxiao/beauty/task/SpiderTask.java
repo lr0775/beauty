@@ -1,5 +1,6 @@
 package com.xxxiao.beauty.task;
 
+import com.xxxiao.beauty.component.Logger;
 import com.xxxiao.beauty.component.Task;
 import com.xxxiao.beauty.constant.API;
 import com.xxxiao.beauty.model.Album;
@@ -26,7 +27,9 @@ public class SpiderTask {
             protected void call() {
                 ArrayList<Album> dataList = new ArrayList<>();
                 try {
-                    Document document = Jsoup.connect(API.HOST + category + "/page/" + page).get();
+                    String url = API.HOST + category + "/page/" + page;
+                    Logger.e("url= " + url);
+                    Document document = Jsoup.connect(url).get();
                     Elements elementsA = document.getElementsByClass("thumb-link");
                     for (Element a : elementsA) {
                         String link = a.attr("abs:href");
