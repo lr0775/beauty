@@ -135,6 +135,7 @@ public class AlbumActivity extends BaseActivity {
 
     private void collectAlbum() {
         AlbumDao dao = DBManager.getInstance().getSession().getAlbumDao();
-        dao.insert(mAlbum);
+        dao.insertOrReplace(mAlbum);
+        Toaster.show("收藏成功");
     }
 }
