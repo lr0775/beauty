@@ -94,6 +94,7 @@ public class MainFragment extends BaseFragment {
                 super.onScrolled(recyclerView, dx, dy);
                 if (!ViewCompat.canScrollVertically(mRecyclerView, 1) && !mLoading && !mLoadAll) {
                     mRefreshLayout.setRefreshing(true);
+                    mPage++;
                     crawlAlbumList();
                 }
             }
@@ -134,9 +135,7 @@ public class MainFragment extends BaseFragment {
                         }
                         mList.addAll(result);
                         mAdapter.notifyDataSetChanged();
-                        if (result.size() >= COUNT) {
-                            mPage++;
-                        } else {
+                        if (result.size() < COUNT) {
                             mLoadAll = true;
                         }
                     }
