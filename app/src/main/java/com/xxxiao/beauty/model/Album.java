@@ -28,18 +28,6 @@ public class Album implements Parcelable {
 
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel out, int i) {
-        out.writeString(name);
-        out.writeString(link);
-        out.writeString(cover);
-    }
-
     public String getName() {
         return this.name;
     }
@@ -81,23 +69,6 @@ public class Album implements Parcelable {
     }
 
 
-
-    public static final Parcelable.Creator<Album> CREATOR = new Parcelable.Creator<Album>() {
-        public Album createFromParcel(Parcel in) {
-            return new Album(in);
-        }
-
-        public Album[] newArray(int size) {
-            return new Album[size];
-        }
-    };
-
-    private Album(Parcel in) {
-        name = in.readString();
-        link = in.readString();
-        cover = in.readString();
-    }
-
     @Generated(hash = 321593460)
     public Album(Long id, String name, String link, String cover, Long timestamp) {
         this.id = id;
@@ -106,4 +77,38 @@ public class Album implements Parcelable {
         this.cover = cover;
         this.timestamp = timestamp;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.link);
+        dest.writeString(this.cover);
+        dest.writeValue(this.timestamp);
+    }
+
+    protected Album(Parcel in) {
+        this.id = (Long) in.readValue(Long.class.getClassLoader());
+        this.name = in.readString();
+        this.link = in.readString();
+        this.cover = in.readString();
+        this.timestamp = (Long) in.readValue(Long.class.getClassLoader());
+    }
+
+    public static final Creator<Album> CREATOR = new Creator<Album>() {
+        @Override
+        public Album createFromParcel(Parcel source) {
+            return new Album(source);
+        }
+
+        @Override
+        public Album[] newArray(int size) {
+            return new Album[size];
+        }
+    };
 }

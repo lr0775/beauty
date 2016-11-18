@@ -21,22 +21,23 @@ public class Photo implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel out, int i) {
-        out.writeString(url);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.url);
     }
 
-    public static final Parcelable.Creator<Photo> CREATOR = new Parcelable.Creator<Photo>() {
-        public Photo createFromParcel(Parcel in) {
-            return new Photo(in);
+    protected Photo(Parcel in) {
+        this.url = in.readString();
+    }
+
+    public static final Creator<Photo> CREATOR = new Creator<Photo>() {
+        @Override
+        public Photo createFromParcel(Parcel source) {
+            return new Photo(source);
         }
 
+        @Override
         public Photo[] newArray(int size) {
             return new Photo[size];
         }
     };
-
-    private Photo(Parcel in) {
-        url = in.readString();
-    }
-
 }
