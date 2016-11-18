@@ -2,14 +2,12 @@ package com.xxxiao.beauty.component;
 
 import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.database.Database;
-import org.greenrobot.greendao.database.StandardDatabase;
 import org.greenrobot.greendao.internal.DaoConfig;
 
 import java.lang.reflect.InvocationTargetException;
@@ -19,19 +17,15 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 
- * please call {@link #migrate(SQLiteDatabase, Class[])}
- * 
+ * please call {@link #migrate(Database, Class[])}
  */
 public final class MigrationHelper {
 
     public static boolean DEBUG = false;
     private static String TAG = "MigrationHelper";
 
-    public static void migrate(SQLiteDatabase db, Class<? extends AbstractDao<?, ?>>... daoClasses) {
-        Database database = new StandardDatabase(db);
+    public static void migrate(Database database, Class<? extends AbstractDao<?, ?>>... daoClasses) {
         if (DEBUG) {
-            Log.d(TAG, "【Database Version】" + db.getVersion());
             Log.d(TAG, "【Generate temp table】start");
         }
         generateTempTables(database, daoClasses);
@@ -68,7 +62,7 @@ public final class MigrationHelper {
                 insertTableStringBuilder.append(" AS SELECT * FROM ").append(tableName).append(";");
                 db.execSQL(insertTableStringBuilder.toString());
                 if (DEBUG) {
-                    Log.d(TAG, "【Table】" + tableName +"\n ---Columns-->"+getColumnsStr(daoConfig));
+                    Log.d(TAG, "【Table】" + tableName + "\n ---Columns-->" + getColumnsStr(daoConfig));
                     Log.d(TAG, "【Generate temp table】" + tempTableName);
                 }
             } catch (SQLException e) {
