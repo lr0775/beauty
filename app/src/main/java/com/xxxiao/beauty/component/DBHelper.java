@@ -2,6 +2,7 @@ package com.xxxiao.beauty.component;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Looper;
 
 import com.xxxiao.beauty.model.AlbumDao;
 import com.xxxiao.beauty.model.DaoMaster;
@@ -18,7 +19,8 @@ public class DBHelper extends DaoMaster.OpenHelper {
 
     @Override
     public void onUpgrade(Database db, int oldVersion, int newVersion) {
-        Logger.e("greenDAO", "Upgrading schema from version " + oldVersion + " to " + newVersion);
+        Logger.e("Upgrading schema from version " + oldVersion + " to " + newVersion);
+        Logger.e("onUpgrade in main thread ? " + (Looper.myLooper() == Looper.getMainLooper())); //false, not in main thread
         MigrationHelper.migrate(db, AlbumDao.class);
     }
 
