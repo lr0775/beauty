@@ -22,7 +22,7 @@ public class Album implements Parcelable {
     public String link;
     public String cover;
 
-    public Long timestamp;
+    //public Long timestamp;
 
     public Album() {
 
@@ -60,22 +60,15 @@ public class Album implements Parcelable {
         this.id = id;
     }
 
-    public Long getTimestamp() {
-        return this.timestamp;
-    }
-
-    public void setTimestamp(Long timestamp) {
-        this.timestamp = timestamp;
-    }
+    
 
 
-    @Generated(hash = 321593460)
-    public Album(Long id, String name, String link, String cover, Long timestamp) {
+    @Generated(hash = 2007464874)
+    public Album(Long id, String name, String link, String cover) {
         this.id = id;
         this.name = name;
         this.link = link;
         this.cover = cover;
-        this.timestamp = timestamp;
     }
 
     @Override
@@ -89,7 +82,6 @@ public class Album implements Parcelable {
         dest.writeString(this.name);
         dest.writeString(this.link);
         dest.writeString(this.cover);
-        dest.writeValue(this.timestamp);
     }
 
     protected Album(Parcel in) {
@@ -97,7 +89,6 @@ public class Album implements Parcelable {
         this.name = in.readString();
         this.link = in.readString();
         this.cover = in.readString();
-        this.timestamp = (Long) in.readValue(Long.class.getClassLoader());
     }
 
     public static final Creator<Album> CREATOR = new Creator<Album>() {
