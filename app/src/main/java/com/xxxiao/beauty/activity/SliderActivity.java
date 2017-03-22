@@ -59,7 +59,7 @@ public class SliderActivity extends BaseActivity {
             @Override
             public void onLoadDone(final Bitmap bitmap) {
                 final ImageView iv = new ImageView(mActivity);
-                iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                //iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 mContainerLayout.addView(iv, -1, params);
                 iv.setImageBitmap(bitmap);
