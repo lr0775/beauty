@@ -8,7 +8,7 @@ public class API {
 
     public static final String HOST = "http://m.xxxiao.com";
 
-    public static final String ZXMN = "";
+    public static final String ZXMN = "/new";
     public static final String XGMN = "/cat/xinggan";
     public static final String SNLL = "/cat/shaonv";
     public static final String MRXT = "/cat/mrxt";
